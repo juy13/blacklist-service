@@ -1,0 +1,13 @@
+[Unit]
+Decription= test service
+After=sshd.service
+[Service]
+Type=simple
+ExecStart=/usr/bin/dz.sh
+Restart=always
+User=root
+Group=root
+[Install]
+WantedBy=multi-user.target
+
+
