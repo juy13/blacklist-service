@@ -28,7 +28,7 @@ try_tofind_smth() {
 	local res="$(systemctl is-active $1)"
 	echo "$res"
 	if [ $res = "active" ]; then
-		(systemctl kill $1)
+		(sudo systemctl stop $1)
 		echo "dude, you will be punished"
 	fi		
 }
@@ -40,14 +40,14 @@ function find_and_punish {
 	if [ "$flag_test" -eq 0 ]; then
 		echo "Continue"
 		local im="$(whoami)"
-		#echo "$im"
+		echo "$im"
 		while read SERVICE USER
 		do
 			echo "$SERVICE $USER"
-			if [ $USER = $im ]; then
-				echo "take it!"
-				try_tofind_smth $SERVICE
-			fi
+			#if [ $USER = $im ]; then
+			echo "take it!"
+			try_tofind_smth $SERVICE
+			#fi
 		done < $AdmFile
 	else
 		echo "Stop"
@@ -56,7 +56,11 @@ function find_and_punish {
 
 trap usrSignal USR1
 trap stop_it SIGINT
-find_and_punish
 
-
+while true
+do
+	echo "FIND"
+	find_and_punish
+	sleep 30 & wait
+done
 
