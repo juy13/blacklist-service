@@ -1,0 +1,22 @@
+sudo yum install createrepo
+sudo mkdir -p /var/www/html/myrepo
+sudo cp ~/rpmbuild/RPMS/*/*.rpm /var/www/html/myrepo
+sudo cp ~/rpmbuild/RPM-GPG-KEY-Ivanov-Ivan /var/www/html/myrepo
+sudo createrepo -v /var/www/html/myrepo
+
+sudo nano /etc/yum.repos.d/my.repo
+__________________________________
+
+[myrepo]
+name=my-repo
+baseurl=http://localhost/myrepo
+enabled=1
+gpgkey=http://localhost/myrepo/RPM-GPG-KEY-Ivanov-Ivan
+________________________________________________
+
+sudo yum install -y httpd
+sudo nano /etc/httpd/conf/httpd.conf (ищем и меняем на ServerName 127.0.0.1:80)
+sudo systemctl enable httpd.service
+sudo systemctl start httpd.service
+yum repolist
+sudo yum install c-test test
