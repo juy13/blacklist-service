@@ -1,0 +1,13 @@
+[Unit]
+Description=blacklist_control_service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/blacklist_serv.sh
+User=root
+Group=root
+Restart=always
+
+
+[Install]
+WantedBy=multi-user.target
