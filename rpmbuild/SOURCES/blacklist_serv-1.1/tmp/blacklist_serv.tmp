@@ -1036,14 +1036,14 @@
 #
 #line 146
 
-#line 382210 "tmp/all_interfaces.conf"
+#line 382263 "tmp/all_interfaces.conf"
 
 #line 1 "blacklist_serv.te"
 
 #line 1
 	
 #line 1
-		module blacklist_serv 1.0;
+		module blacklist_serv 1.0.0;
 #line 1
 
 #line 1
@@ -3321,481 +3321,556 @@ category c1023;
 #line 1
 
 
+########################################
+#
+# Declarations
+#
 
-require {
-	type init_t;
-	type blacklist_serv_t;
-	type usr_home_t;
-	type etc_t;
-	class file { open read getattr setattr write };
-}
-
-
-# тип для процесса
 type blacklist_serv_t;
-# тип для исполняемого файла
 type blacklist_serv_exec_t;
-
  	 	
-#line 18
+#line 10
 ##### begin init_daemon_domain(blacklist_serv_t,blacklist_serv_exec_t) depth: 1
-#line 18
+#line 10
  	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		require {
-#line 18
+#line 10
 			
-#line 18
+#line 10
 		attribute direct_run_init, direct_init, direct_init_entry;
-#line 18
+#line 10
 		type init_t;
-#line 18
+#line 10
 		role system_r;
-#line 18
+#line 10
 		attribute daemon;
-#line 18
+#line 10
 		attribute initrc_transition_domain;
-#line 18
+#line 10
 		attribute initrc_domain;
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		} # end require
-#line 18
+#line 10
 	
-#line 18
+#line 10
 
-#line 18
+#line 10
 
-#line 18
+#line 10
 	typeattribute blacklist_serv_t daemon;
-#line 18
+#line 10
 	typeattribute blacklist_serv_exec_t direct_init_entry;
-#line 18
+#line 10
 
-#line 18
+#line 10
 	 	 	
-#line 18
+#line 10
 ##### begin domain_type(blacklist_serv_t) depth: 2
-#line 18
+#line 10
  	
-#line 18
+#line 10
 	# start with basic domain
-#line 18
+#line 10
 	 	 	
-#line 18
+#line 10
 ##### begin domain_base_type(blacklist_serv_t) depth: 3
-#line 18
+#line 10
  	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		require {
-#line 18
+#line 10
 			
-#line 18
+#line 10
 		attribute domain;
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		} # end require
-#line 18
+#line 10
 	
-#line 18
+#line 10
 
-#line 18
+#line 10
 
-#line 18
+#line 10
 	typeattribute blacklist_serv_t domain;
-#line 18
+#line 10
 
-#line 18
+#line 10
 	 	
-#line 18
+#line 10
 ##### end domain_base_type(blacklist_serv_t) depth: 2
-#line 18
+#line 10
  	
-#line 18
+#line 10
 
-#line 18
+#line 10
 	# Only way to get corenet_unlabeled packets disabled to work
-#line 18
+#line 10
 	 	 	
-#line 18
+#line 10
 ##### begin corenet_all_recvfrom_unlabeled(blacklist_serv_t) depth: 3
-#line 18
+#line 10
  	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		require {
-#line 18
+#line 10
 			
-#line 18
+#line 10
                 attribute corenet_unlabeled_type;
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		} # end require
-#line 18
+#line 10
 	
-#line 18
+#line 10
 
-#line 18
+#line 10
 	typeattribute blacklist_serv_t corenet_unlabeled_type;
-#line 18
+#line 10
 
-#line 18
+#line 10
 	 	
-#line 18
+#line 10
 ##### end corenet_all_recvfrom_unlabeled(blacklist_serv_t) depth: 2
-#line 18
+#line 10
  	
-#line 18
+#line 10
 
-#line 18
+#line 10
 	 	
-#line 18
+#line 10
 ##### end domain_type(blacklist_serv_t) depth: 1
-#line 18
+#line 10
  	
-#line 18
+#line 10
 	 	 	
-#line 18
+#line 10
 ##### begin domain_entry_file(blacklist_serv_t,blacklist_serv_exec_t) depth: 2
-#line 18
+#line 10
  	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		require {
-#line 18
+#line 10
 			
-#line 18
+#line 10
 		attribute entry_type;
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		} # end require
-#line 18
+#line 10
 	
-#line 18
+#line 10
 
-#line 18
+#line 10
 
-#line 18
+#line 10
 	allow blacklist_serv_t blacklist_serv_exec_t:file entrypoint;
-#line 18
+#line 10
 	allow blacklist_serv_t blacklist_serv_exec_t:file { { getattr open map read execute ioctl execute_no_trans } ioctl lock };
-#line 18
+#line 10
 
-#line 18
+#line 10
 	typeattribute blacklist_serv_exec_t entry_type;
-#line 18
+#line 10
 
-#line 18
+#line 10
 	 	 	
-#line 18
+#line 10
 ##### begin corecmd_executable_file(blacklist_serv_exec_t) depth: 3
-#line 18
+#line 10
  	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		require {
-#line 18
+#line 10
 			
-#line 18
+#line 10
 		attribute exec_type;
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		} # end require
-#line 18
+#line 10
 	
-#line 18
+#line 10
 
-#line 18
+#line 10
 
-#line 18
+#line 10
 	typeattribute blacklist_serv_exec_t exec_type;
-#line 18
+#line 10
 
-#line 18
+#line 10
 	 	 	
-#line 18
+#line 10
 ##### begin files_type(blacklist_serv_exec_t) depth: 4
-#line 18
+#line 10
  	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		require {
-#line 18
+#line 10
 			
-#line 18
+#line 10
 		attribute file_type, non_security_file_type, non_auth_file_type;
-#line 18
+#line 10
 	
-#line 18
+#line 10
 		} # end require
-#line 18
+#line 10
 	
-#line 18
+#line 10
 
-#line 18
+#line 10
 
-#line 18
+#line 10
 	typeattribute blacklist_serv_exec_t file_type, non_security_file_type, non_auth_file_type;
-#line 18
+#line 10
 
-#line 18
+#line 10
 	 	
-#line 18
+#line 10
 ##### end files_type(blacklist_serv_exec_t) depth: 3
-#line 18
+#line 10
  	
-#line 18
+#line 10
 
-#line 18
+#line 10
 	 	
-#line 18
+#line 10
 ##### end corecmd_executable_file(blacklist_serv_exec_t) depth: 2
-#line 18
+#line 10
  	
-#line 18
+#line 10
 
-#line 18
+#line 10
 	 	
-#line 18
+#line 10
 ##### end domain_entry_file(blacklist_serv_t,blacklist_serv_exec_t) depth: 1
-#line 18
+#line 10
  	
-#line 18
+#line 10
 
-#line 18
+#line 10
 	type_transition initrc_domain blacklist_serv_exec_t:process blacklist_serv_t;
-#line 18
+#line 10
 
-#line 18
+#line 10
 	
-#line 18
+#line 10
 
-#line 18
+#line 10
 	 	
-#line 18
+#line 10
 ##### end init_daemon_domain(blacklist_serv_t,blacklist_serv_exec_t) depth: 0
-#line 18
- 	;
-
-
-# тип для конфиг-файлов
-type blacklist_serv_conf_t;
-# тип для лог-файла разрешаем писать логи
-type blacklist_serv_log_t;
- 	 	
-#line 25
-##### begin files_type(blacklist_serv_log_t) depth: 1
-#line 25
- 	
-#line 25
-	
-#line 25
-	
-#line 25
-		require {
-#line 25
-			
-#line 25
-		attribute file_type, non_security_file_type, non_auth_file_type;
-#line 25
-	
-#line 25
-		} # end require
-#line 25
-	
-#line 25
-
-#line 25
-
-#line 25
-	typeattribute blacklist_serv_log_t file_type, non_security_file_type, non_auth_file_type;
-#line 25
-
-#line 25
-	 	
-#line 25
-##### end files_type(blacklist_serv_log_t) depth: 0
-#line 25
+#line 10
  	
 
-#пока permissive
 permissive blacklist_serv_t;
 
 ########################################
 #
 # blacklist_serv local policy
 #
-
-allow blacklist_serv_t etc_t:file { open read setattr getattr };
-allow blacklist_serv_t usr_home_t:file write;
-
-
-# Grant swap-monitor_t the signal privilege
-allow blacklist_serv_t self:process { signal };
+allow blacklist_serv_t self:fifo_file { open { getattr read write append ioctl lock } };
+allow blacklist_serv_t self:unix_stream_socket { { create { ioctl read getattr lock write setattr append bind connect getopt setopt shutdown } } listen accept };
 
  	 	
-#line 42
+#line 21
 ##### begin domain_use_interactive_fds(blacklist_serv_t) depth: 1
-#line 42
+#line 21
  	
-#line 42
+#line 21
 	
-#line 42
+#line 21
 	
-#line 42
+#line 21
 		require {
-#line 42
+#line 21
 			
-#line 42
+#line 21
 		attribute privfd;
-#line 42
+#line 21
 	
-#line 42
+#line 21
 		} # end require
-#line 42
+#line 21
 	
-#line 42
+#line 21
 
-#line 42
+#line 21
 
-#line 42
+#line 21
 	allow blacklist_serv_t privfd:fd use;
-#line 42
+#line 21
 
-#line 42
+#line 21
 	 	
-#line 42
+#line 21
 ##### end domain_use_interactive_fds(blacklist_serv_t) depth: 0
-#line 42
+#line 21
  	
 
  	 	
-#line 44
+#line 23
 ##### begin files_read_etc_files(blacklist_serv_t) depth: 1
-#line 44
+#line 23
  	
-#line 44
+#line 23
 	
-#line 44
+#line 23
 	
-#line 44
+#line 23
 		require {
-#line 44
+#line 23
 			
-#line 44
+#line 23
 		type etc_t;
-#line 44
+#line 23
 	
-#line 44
+#line 23
 		} # end require
-#line 44
+#line 23
 	
-#line 44
+#line 23
 
-#line 44
+#line 23
 
-#line 44
+#line 23
 	allow blacklist_serv_t etc_t:dir { getattr search open read lock ioctl };
-#line 44
+#line 23
 	
-#line 44
+#line 23
 	allow blacklist_serv_t etc_t:dir { getattr search open };
-#line 44
+#line 23
 	allow blacklist_serv_t etc_t:file { open { getattr read ioctl lock } };
-#line 44
+#line 23
 
-#line 44
+#line 23
 	
-#line 44
+#line 23
 	allow blacklist_serv_t etc_t:dir { getattr search open };
-#line 44
+#line 23
 	allow blacklist_serv_t etc_t:lnk_file { getattr read };
-#line 44
+#line 23
 
-#line 44
+#line 23
 	 	 	
-#line 44
+#line 23
 ##### begin files_read_etc_runtime_files(blacklist_serv_t) depth: 2
-#line 44
+#line 23
  	
-#line 44
+#line 23
 	
-#line 44
+#line 23
 	
-#line 44
+#line 23
 		require {
-#line 44
+#line 23
 			
-#line 44
+#line 23
 		type etc_t, etc_runtime_t;
-#line 44
+#line 23
 	
-#line 44
+#line 23
 		} # end require
-#line 44
+#line 23
 	
-#line 44
+#line 23
 
-#line 44
+#line 23
 
-#line 44
+#line 23
 	allow blacklist_serv_t etc_t:dir { getattr search open read lock ioctl };
-#line 44
+#line 23
 	
-#line 44
+#line 23
 	allow blacklist_serv_t etc_t:dir { getattr search open };
-#line 44
+#line 23
 	allow blacklist_serv_t etc_runtime_t:file { open { getattr read ioctl lock } };
-#line 44
+#line 23
 
-#line 44
+#line 23
 	
-#line 44
+#line 23
 	allow blacklist_serv_t etc_t:dir { getattr search open };
-#line 44
+#line 23
 	allow blacklist_serv_t etc_runtime_t:lnk_file { getattr read };
-#line 44
+#line 23
 
-#line 44
+#line 23
 
-#line 44
+#line 23
 	 	
-#line 44
+#line 23
 ##### end files_read_etc_runtime_files(blacklist_serv_t) depth: 1
-#line 44
+#line 23
  	
-#line 44
+#line 23
 
-#line 44
+#line 23
 	 	
-#line 44
+#line 23
 ##### end files_read_etc_files(blacklist_serv_t) depth: 0
-#line 44
+#line 23
  	
 
+ 	 	
+#line 25
+##### begin miscfiles_read_localization(blacklist_serv_t) depth: 1
+#line 25
+ 	
+#line 25
+	
+#line 25
+	
+#line 25
+		require {
+#line 25
+			
+#line 25
+		type locale_t;
+#line 25
+	
+#line 25
+		} # end require
+#line 25
+	
+#line 25
 
+#line 25
+
+#line 25
+	 	 	
+#line 25
+##### begin files_read_etc_symlinks(blacklist_serv_t) depth: 2
+#line 25
+ 	
+#line 25
+	
+#line 25
+	
+#line 25
+		require {
+#line 25
+			
+#line 25
+		type etc_t;
+#line 25
+	
+#line 25
+		} # end require
+#line 25
+	
+#line 25
+
+#line 25
+
+#line 25
+	
+#line 25
+	allow blacklist_serv_t etc_t:dir { getattr search open };
+#line 25
+	allow blacklist_serv_t etc_t:lnk_file { getattr read };
+#line 25
+
+#line 25
+
+#line 25
+	 	
+#line 25
+##### end files_read_etc_symlinks(blacklist_serv_t) depth: 1
+#line 25
+ 	
+#line 25
+	 	 	
+#line 25
+##### begin files_search_usr(blacklist_serv_t) depth: 2
+#line 25
+ 	
+#line 25
+	
+#line 25
+	
+#line 25
+		require {
+#line 25
+			
+#line 25
+		type usr_t;
+#line 25
+	
+#line 25
+		} # end require
+#line 25
+	
+#line 25
+
+#line 25
+
+#line 25
+	allow blacklist_serv_t usr_t:dir { getattr search open };
+#line 25
+
+#line 25
+	 	
+#line 25
+##### end files_search_usr(blacklist_serv_t) depth: 1
+#line 25
+ 	
+#line 25
+	allow blacklist_serv_t locale_t:dir { getattr search open read lock ioctl };
+#line 25
+	
+#line 25
+	allow blacklist_serv_t locale_t:dir { getattr search open };
+#line 25
+	allow blacklist_serv_t locale_t:file { open { getattr read ioctl lock } };
+#line 25
+
+#line 25
+	
+#line 25
+	allow blacklist_serv_t locale_t:dir { getattr search open };
+#line 25
+	allow blacklist_serv_t locale_t:lnk_file { getattr read };
+#line 25
+
+#line 25
+	allow blacklist_serv_t locale_t:file map;
+#line 25
+
+#line 25
+	 	
+#line 25
+##### end miscfiles_read_localization(blacklist_serv_t) depth: 0
+#line 25
+ 	

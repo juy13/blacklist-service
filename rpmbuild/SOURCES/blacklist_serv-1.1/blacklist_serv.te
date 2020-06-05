@@ -1,30 +1,27 @@
-policy_module(blacklist_serv, 1.0)
+policy_module(blacklist_serv, 1.0.0)
 
+########################################
+#
+# Declarations
+#
 
 require {
-	type init_t;
-	type blacklist_serv_t;
-	type usr_home_t;
+	type unconfined_t;
+	type setroubleshootd_t;
+	type usr_t;
 	type etc_t;
-	class file { open read getattr setattr write };
 }
 
-
-# тип для процесса
 type blacklist_serv_t;
-# тип для исполняемого файла
 type blacklist_serv_exec_t;
-
-init_daemon_domain(blacklist_serv_t, blacklist_serv_exec_t);
-
-
-# тип для конфиг-файлов
 type blacklist_serv_conf_t;
-# тип для лог-файла разрешаем писать логи
 type blacklist_serv_log_t;
-files_type(blacklist_serv_log_t)
 
-#пока permissive
+fs_associate(blacklist_serv_log_t)
+fs_associate(blacklist_serv_conf_t)
+
+init_daemon_domain(blacklist_serv_t, blacklist_serv_exec_t)
+
 permissive blacklist_serv_t;
 
 ########################################
@@ -32,15 +29,15 @@ permissive blacklist_serv_t;
 # blacklist_serv local policy
 #
 
-allow blacklist_serv_t etc_t:file { open read setattr getattr };
-allow blacklist_serv_t usr_home_t:file write;
-
-
-# Grant swap-monitor_t the signal privilege
-allow blacklist_serv_t self:process { signal };
+allow blacklist_serv_t self:fifo_file rw_fifo_file_perms;
+allow blacklist_serv_t self:unix_stream_socket create_stream_socket_perms;
+allow blacklist_serv_t blacklist_serv_conf_t: { dir file } { getattr open read relabelto };
+allow setroubleshootd_t blacklist_serv_conf_t: { dir file } getattr;
+allow blacklist_serv_t blacklist_serv_log_t:file { read append };
+allow blacklist_serv_t self:unix_stream_socket create_stream_socket_perms;
 
 domain_use_interactive_fds(blacklist_serv_t)
 
 files_read_etc_files(blacklist_serv_t)
 
-
+miscfiles_read_localization(blacklist_serv_t)

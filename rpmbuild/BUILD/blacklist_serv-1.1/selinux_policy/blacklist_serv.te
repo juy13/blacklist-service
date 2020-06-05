@@ -1,0 +1,43 @@
+policy_module(blacklist_serv, 1.0.0)
+
+########################################
+#
+# Declarations
+#
+
+require {
+	type unconfined_t;
+	type setroubleshootd_t;
+	type usr_t;
+	type etc_t;
+}
+
+type blacklist_serv_t;
+type blacklist_serv_exec_t;
+type blacklist_serv_conf_t;
+type blacklist_serv_log_t;
+
+fs_associate(blacklist_serv_log_t)
+fs_associate(blacklist_serv_conf_t)
+
+init_daemon_domain(blacklist_serv_t, blacklist_serv_exec_t)
+
+permissive blacklist_serv_t;
+
+########################################
+#
+# blacklist_serv local policy
+#
+
+allow blacklist_serv_t self:fifo_file rw_fifo_file_perms;
+allow blacklist_serv_t self:unix_stream_socket create_stream_socket_perms;
+allow blacklist_serv_t blacklist_serv_conf_t: { dir file } { getattr open read relabelto };
+allow setroubleshootd_t blacklist_serv_conf_t: { dir file } getattr;
+allow blacklist_serv_t blacklist_serv_log_t:file { read append };
+allow blacklist_serv_t self:unix_stream_socket create_stream_socket_perms;
+
+domain_use_interactive_fds(blacklist_serv_t)
+
+files_read_etc_files(blacklist_serv_t)
+
+miscfiles_read_localization(blacklist_serv_t)

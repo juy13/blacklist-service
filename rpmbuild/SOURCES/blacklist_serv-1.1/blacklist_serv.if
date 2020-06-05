@@ -1,1 +1,40 @@
-## <summary></summary>
+
+## <summary>policy for blacklist_serv</summary>
+
+########################################
+## <summary>
+##	Execute blacklist_serv_exec_t in the blacklist_serv domain.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`blacklist_serv_domtrans',`
+	gen_require(`
+		type blacklist_serv_t, blacklist_serv_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	domtrans_pattern($1, blacklist_serv_exec_t, blacklist_serv_t)
+')
+
+######################################
+## <summary>
+##	Execute blacklist_serv in the caller domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`blacklist_serv_exec',`
+	gen_require(`
+		type blacklist_serv_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	can_exec($1, blacklist_serv_exec_t)
+')
