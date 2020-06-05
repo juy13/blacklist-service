@@ -17,25 +17,23 @@ type blacklist_serv_exec_t;
 type blacklist_serv_conf_t;
 type blacklist_serv_log_t;
 
-files_type(blacklist_serv_log_t)
+fs_associate(blacklist_serv_log_t)
 fs_associate(blacklist_serv_conf_t)
 
 init_daemon_domain(blacklist_serv_t, blacklist_serv_exec_t)
 
-#permissive blacklist_serv_t;
+permissive blacklist_serv_t;
 
 ########################################
 #
 # blacklist_serv local policy
 #
 
-
-
 allow blacklist_serv_t self:fifo_file rw_fifo_file_perms;
 allow blacklist_serv_t self:unix_stream_socket create_stream_socket_perms;
-allow unconfined_t blacklist_serv_conf_t: { dir file } { getattr open read relabelto };
+allow blacklist_serv_t blacklist_serv_conf_t: { dir file } { getattr open read relabelto };
 allow setroubleshootd_t blacklist_serv_conf_t: { dir file } getattr;
-allow usr_t blacklist_serv_log_t:file { read append };
+allow blacklist_serv_t blacklist_serv_log_t:file { read append };
 allow blacklist_serv_t self:unix_stream_socket create_stream_socket_perms;
 
 domain_use_interactive_fds(blacklist_serv_t)
