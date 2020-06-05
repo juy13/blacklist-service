@@ -1,0 +1,49 @@
+.TH blacklist-service 1  "June 5, 2020" "version 0.3" "USER MANUAL"
+.SH NAME
+blacklist-service \- checks once a minute that blacklisted services are not running
+.SH DESCRIPTION
+A service that checks once a minute that blacklisted services are not running. If the service detects that the blacklisted service is running, it ends it. The blacklist is controlled by the administrator through the configuration file in the /etc directory. By default, the configuration file contains the httpd service.
+.SH INSTALLATION PROCEDURE
+sudo yum install createrepo
+.TP
+sudo mkdir -p /var/www/html/myrepo
+.TP
+sudo cp ~/rpmbuild/RPMS/*/*.rpm /var/www/html/myrepo
+.TP
+sudo cp ~/rpmbuild/RPM-GPG-KEY-Ivanov-Ivan /var/www/html/myrepo
+.TP
+sudo createrepo -v /var/www/html/myrepo
+.SH PATH TO CONFIGURATION FILE
+sudo nano /etc/yum.repos.d/my.repo
+.SH CONFIGURATION FILE SETTINGS
+[myrepo]
+name=my-repo
+.TP
+baseurl=http://localhost/myrepo
+.TP
+enabled=1
+.TP
+gpgkey=http://localhost/myrepo/RPM-GPG-KEY-Ivanov-Ivan
+.SH EXAMPLE OF SERVICE IN BLACK LIST
+sudo yum install -y httpd
+.TP
+sudo nano /etc/httpd/conf/httpd.conf
+.TP
+sudo systemctl enable httpd.service
+.TP
+sudo systemctl start httpd.service
+.TP
+yum repolist
+.TP
+sudo yum install c-test test
+.SH AUTHORS
+An Hai (B17-565)
+.TP
+Artyom Kalinkin (B17-565)
+.TP
+Julian Volyansky (B17-565)
+.TP
+Salim Nurmatov (B17-565)
+.TP
+Vladislav Matveev (B17-505)
+
